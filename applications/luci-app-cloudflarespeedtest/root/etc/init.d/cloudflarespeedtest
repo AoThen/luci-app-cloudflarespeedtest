@@ -50,6 +50,9 @@ stop_service() {
 	config_foreach stop_instance global
 }
 start_service() {
+	if [ -f "/usr/bin/cloudflarespeedtest/cloudflarespeedtest.sh" ]; then
+	chmod +x /usr/bin/cloudflarespeedtest/cloudflarespeedtest.sh >/dev/null 2>&1
+
 	config_load cloudflarespeedtest
 	config_foreach add_cron global	 
 }
