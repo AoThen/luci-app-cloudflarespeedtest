@@ -2,8 +2,8 @@ on:
   workflow_dispatch:
   push:
 #     Sequence of patterns matched against refs/tags
-    tags:
-    - '*' # Tag events
+    # tags:
+    # - '*' # Tag events
 
 name: Upload Release Asset
 
@@ -27,10 +27,10 @@ jobs:
           chmod +x /tmp/luci-app-cloudflarespeedtest/etc/init.d/* >/dev/null 2>&1
           [ -d $GITHUB_WORKSPACE/applications/luci-app-cloudflarespeedtest/po ] && sudo -E apt-get -y install gcc make && \
           mkdir -p /tmp/po2lmo && mkdir -p /tmp/luci-app-cloudflarespeedtest/usr/lib/lua/luci/i18n/ && \
-          wget -O /tmp/po2lmo/po2lmo.c https://raw.githubusercontent.com/openwrt/luci/openwrt-18.06/modules/luci-base/src/po2lmo.c && \
-          wget -O /tmp/po2lmo/Makefile https://raw.githubusercontent.com/openwrt/luci/openwrt-18.06/modules/luci-base/src/Makefile && \
-          wget -O /tmp/po2lmo/template_lmo.h https://raw.githubusercontent.com/openwrt/luci/openwrt-18.06/modules/luci-base/src/template_lmo.h && \
-          wget -O /tmp/po2lmo/template_lmo.c https://raw.githubusercontent.com/openwrt/luci/openwrt-18.06/modules/luci-base/src/template_lmo.c && \
+          wget -O /tmp/po2lmo/po2lmo.c https://raw.githubusercontent.com/openwrt/luci/openwrt-21.02/modules/luci-base/src/po2lmo.c && \
+          wget -O /tmp/po2lmo/Makefile https://raw.githubusercontent.com/openwrt/luci/openwrt-21.02/modules/luci-base/src/Makefile && \
+          wget -O /tmp/po2lmo/template_lmo.h https://raw.githubusercontent.com/openwrt/luci/openwrt-21.02/modules/luci-base/src/template_lmo.h && \
+          wget -O /tmp/po2lmo/template_lmo.c https://raw.githubusercontent.com/openwrt/luci/openwrt-21.02/modules/luci-base/src/template_lmo.c && \
           cd /tmp/po2lmo && make po2lmo && ./po2lmo $GITHUB_WORKSPACE/applications/luci-app-cloudflarespeedtest/po/zh_Hans/cloudflarespeedtest.po /tmp/luci-app-cloudflarespeedtest/usr/lib/lua/luci/i18n/cloudflarespeedtest.zh-cn.lmo
           mkdir -p /tmp/luci-app-cloudflarespeedtest/CONTROL
           cat >/tmp/luci-app-cloudflarespeedtest/CONTROL/control <<EOF
@@ -53,7 +53,7 @@ jobs:
           EOF
           chmod +x /tmp/luci-app-cloudflarespeedtest/usr/bin/cloudflarespeedtest/*.sh
           chmod +x /tmp/luci-app-cloudflarespeedtest/CONTROL/postinst
-          wget -O /tmp/ipkg-build https://raw.githubusercontent.com/openwrt/openwrt/openwrt-18.06/scripts/ipkg-build && \
+          wget -O /tmp/ipkg-build https://raw.githubusercontent.com/openwrt/openwrt/openwrt-21.02/scripts/ipkg-build && \
           chmod +x /tmp/ipkg-build && \
           /tmp/ipkg-build -o root -g root /tmp/luci-app-cloudflarespeedtest /tmp
 
