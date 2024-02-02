@@ -51,7 +51,7 @@ stop_service() {
 }
 start_service() {
 	if [ -f "/usr/bin/cloudflarespeedtest/cloudflarespeedtest.sh" ]; then
-	chmod +x /usr/bin/cloudflarespeedtest/cloudflarespeedtest.sh >/dev/null 2>&1
+		chmod +x /usr/bin/cloudflarespeedtest/cloudflarespeedtest.sh >/dev/null 2>&1
 	fi
 
 	config_load cloudflarespeedtest
