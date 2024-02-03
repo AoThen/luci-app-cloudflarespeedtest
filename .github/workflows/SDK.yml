@@ -3,7 +3,7 @@ name: Build
 
 on:
     workflow_dispatch:
-    push:
+    push: 
 
 jobs:
     build:
@@ -19,15 +19,24 @@ jobs:
         - name: Building packages
           uses: actions/checkout@main
           with:
+           path: './applications'
            fetch-depth: 0
 
         - name: Build
           uses: openwrt/gh-action-sdk@main
           env:
-              ARCH: ${{ matrix.arch }}
-
+              ARCH: ${{ matrix.arch }}-openwrt-22.03
+              FEEDNAME: packages_ci
+              PACKAGES: applications
+              NO_REFRESH_CHECK: true
         - name: Store packages
           uses: actions/upload-artifact@main
           with:
            name: ${{ matrix.arch}}-packages
-           path: bin/packages/${{ matrix.arch }}/packages/*.ipk
+           path: bin/packages/${{ matrix.arch }}/packages_ci/*.ipk
+
+        - name: Delete workflow runs
+          uses: AoThen/delete-workflow-runs@main
+          with:
+                retain_days: 1
+                keep_minimum_runs: 5
