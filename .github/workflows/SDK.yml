@@ -31,7 +31,7 @@ jobs:
         #       PACKAGES: cdnspeedtest
         #       NO_REFRESH_CHECK: true
 
-        - name: Build2
+        - name: Build
           uses: openwrt/gh-action-sdk@main
           env:
               ARCH: ${{ matrix.arch }}-openwrt-22.03
@@ -42,7 +42,7 @@ jobs:
         - name: Store packages
           uses: actions/upload-artifact@main
           with:
-           name: ${{ matrix.arch}}-packages
+           name: luci-app-cloudflarespeedtest-${{ matrix.arch}}
            path: bin/packages/${{ matrix.arch }}/packages_ci/*.ipk
 
         - name: Delete workflow runs
