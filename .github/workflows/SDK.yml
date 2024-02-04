@@ -23,21 +23,21 @@ jobs:
            path: './applications'
            fetch-depth: 0
 
-        - name: Build1
-          uses: openwrt/gh-action-sdk@main
-          env:
-              ARCH: ${{ matrix.arch }}-openwrt-22.03
-              FEEDNAME: packages_ci
-              PACKAGES: cdnspeedtest
-              NO_REFRESH_CHECK: true
-
-        # - name: Build2
+        # - name: Build1
         #   uses: openwrt/gh-action-sdk@main
         #   env:
         #       ARCH: ${{ matrix.arch }}-openwrt-22.03
         #       FEEDNAME: packages_ci
-        #       PACKAGES: luci-app-cloudflarespeedtest
+        #       PACKAGES: cdnspeedtest
         #       NO_REFRESH_CHECK: true
+
+        - name: Build2
+          uses: openwrt/gh-action-sdk@main
+          env:
+              ARCH: ${{ matrix.arch }}-openwrt-22.03
+              FEEDNAME: packages_ci
+              PACKAGES: luci-app-cloudflarespeedtest
+              NO_REFRESH_CHECK: true
 
         - name: Store packages
           uses: actions/upload-artifact@main
